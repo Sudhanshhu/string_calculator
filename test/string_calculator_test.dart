@@ -38,6 +38,55 @@ void main() {
       },
     );
 
+    test(
+      "allow new lines also for delimiters",
+      () {
+        expect(
+          calculator.add("2\n5,3\n5,3"),
+          equals(18),
+        );
+      },
+    );
+
+    test("Handles dynamic delimiters which start with // and ends with \n", () {
+      expect(
+        calculator.add("//;\n2;5;3"),
+        equals(10),
+      );
+    });
+
+    test(
+      "throw Exception when negative number founds",
+      () {
+        expect(
+          () => calculator.add("-1"),
+          throwsA(
+            predicate(
+              (e) =>
+                  e is Exception &&
+                  e.toString().contains('negative numbers not allowed'),
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      "throws listing all negative numbers when multiple negatives are present",
+      () {
+        expect(
+          () => calculator.add("1,-2,3,-4"),
+          throwsA(
+            predicate(
+              (e) =>
+                  e is Exception &&
+                  e.toString().contains('negative numbers not allowed -2,-4'),
+            ),
+          ),
+        );
+      },
+    );
+
     // End
   });
 }

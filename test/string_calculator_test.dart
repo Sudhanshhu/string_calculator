@@ -71,6 +71,22 @@ void main() {
       },
     );
 
+    test(
+      "throws listing all negative numbers when multiple negatives are present",
+      () {
+        expect(
+          () => calculator.add("1,-2,3,-4"),
+          throwsA(
+            predicate(
+              (e) =>
+                  e is Exception &&
+                  e.toString().contains('negative numbers not allowed -2,-4'),
+            ),
+          ),
+        );
+      },
+    );
+
     // End
   });
 }

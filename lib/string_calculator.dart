@@ -13,13 +13,14 @@ class StringCalculator {
       delimiters.add(delimitter);
       numString = numbers.substring(delimiterTillIndex + 1);
     }
+
     final pattern = delimiters.map(RegExp.escape).join('|');
     final List<String> numListString =
         numString.split(RegExp(pattern)).toList();
     final List<int> numList = numListString.map(int.parse).toList();
     final negativeNo = numList.where((e) => e < 0).toList();
     if (negativeNo.isNotEmpty) {
-      throw Exception("negative numbers not allowed");
+      throw Exception("negative numbers not allowed ${negativeNo.join(',')}");
     }
 
     return numList.reduce((a, b) => a + b);

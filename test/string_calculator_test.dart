@@ -28,6 +28,16 @@ void main() {
       },
     );
 
+    test(
+      "return sum of multiple number separated by comma",
+      () {
+        expect(
+          calculator.add("2,5,3,5,3"),
+          equals(18),
+        );
+      },
+    );
+
     // End
   });
 }

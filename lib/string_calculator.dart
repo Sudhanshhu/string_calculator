@@ -3,6 +3,8 @@ class StringCalculator {
     if (numbers.isEmpty) {
       return 0;
     }
-    return int.parse(numbers);
+    final List<String> numListString = numbers.split(",").toList();
+    final List<int> numList = numListString.map(int.parse).toList();
+    return numList.reduce((a, b) => a + b);
   }
 }

@@ -3,9 +3,9 @@ import 'package:test/test.dart';
 
 void main() {
   group('StringCalculator', () {
-    test('Add method is not defined so it is Red flag for TDD', () {
-      final calculator = StringCalculator();
-      expect(calculator.add(''), 0);
+    final calculator = StringCalculator();
+    test('returns 0 for empty string', () {
+      expect(calculator.add(""), equals(0));
     });
   });
 }

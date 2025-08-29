@@ -38,6 +38,16 @@ void main() {
       },
     );
 
+    test(
+      "allow new lines also for delimiters",
+      () {
+        expect(
+          calculator.add("2\n5,3\n5,3"),
+          equals(18),
+        );
+      },
+    );
+
     // End
   });
 }

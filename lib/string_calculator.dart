@@ -17,6 +17,11 @@ class StringCalculator {
     final List<String> numListString =
         numString.split(RegExp(pattern)).toList();
     final List<int> numList = numListString.map(int.parse).toList();
+    final negativeNo = numList.where((e) => e < 0).toList();
+    if (negativeNo.isNotEmpty) {
+      throw Exception("negative numbers not allowed");
+    }
+
     return numList.reduce((a, b) => a + b);
   }
 }

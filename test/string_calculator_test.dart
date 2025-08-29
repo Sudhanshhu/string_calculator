@@ -55,6 +55,22 @@ void main() {
       );
     });
 
+    test(
+      "throw Exception when negative number founds",
+      () {
+        expect(
+          () => calculator.add("-1"),
+          throwsA(
+            predicate(
+              (e) =>
+                  e is Exception &&
+                  e.toString().contains('negative numbers not allowed'),
+            ),
+          ),
+        );
+      },
+    );
+
     // End
   });
 }

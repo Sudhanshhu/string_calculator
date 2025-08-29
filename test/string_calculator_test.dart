@@ -48,6 +48,13 @@ void main() {
       },
     );
 
+    test("Handles dynamic delimiters which start with // and ends with \n", () {
+      expect(
+        calculator.add("//;\n2;5;3"),
+        equals(10),
+      );
+    });
+
     // End
   });
 }

@@ -1,28 +1,34 @@
 class StringCalculator {
   int add(String numbers) {
-    if (numbers.isEmpty) {
-      return 0;
-    }
+    if (numbers.isEmpty) return 0;
 
-    final List<String> delimiters = [',', '\n'];
-    String numString = numbers;
+    final tokens = _tokenize(numbers);
+    final values = tokens.map(int.parse).toList();
 
-    if (numbers.contains("//")) {
-      final delimiterTillIndex = numbers.indexOf("\n");
-      final String delimitter = numbers.substring(2, delimiterTillIndex);
-      delimiters.add(delimitter);
-      numString = numbers.substring(delimiterTillIndex + 1);
+    _throwIfNegatives(values);
+
+    return values.fold(0, (a, b) => a + b);
+  }
+
+  List<String> _tokenize(String input) {
+    final delimiters = [',', '\n'];
+    var numString = input;
+
+    if (input.startsWith('//')) {
+      final delimiterTillIndex = input.indexOf('\n');
+      final delimiter = input.substring(2, delimiterTillIndex);
+      delimiters.add(delimiter);
+      numString = input.substring(delimiterTillIndex + 1);
     }
 
     final pattern = delimiters.map(RegExp.escape).join('|');
-    final List<String> numListString =
-        numString.split(RegExp(pattern)).toList();
-    final List<int> numList = numListString.map(int.parse).toList();
-    final negativeNo = numList.where((e) => e < 0).toList();
-    if (negativeNo.isNotEmpty) {
-      throw Exception("negative numbers not allowed ${negativeNo.join(',')}");
-    }
+    return numString.split(RegExp(pattern)).where((s) => s.isNotEmpty).toList();
+  }
 
-    return numList.reduce((a, b) => a + b);
+  void _throwIfNegatives(List<int> numbers) {
+    final negatives = numbers.where((n) => n < 0).toList();
+    if (negatives.isNotEmpty) {
+      throw Exception("negative numbers not allowed ${negatives.join(',')}");
+    }
   }
 }
